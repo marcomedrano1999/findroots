@@ -1,7 +1,7 @@
 /*
-Programa para calcular las raices reales de un polinomio de la forma: 
+Program that calculate the real roots of the cubic ecuation in the following form: 
 					aX^3 + bX^2 + cX + d = 0
-mediante el método general.
+using the trigonometric method of Vieta
 */
 
 #include <iostream>
@@ -9,30 +9,51 @@ mediante el método general.
 #include <cmath>
 using namespace std;
 
-double calcular_q(double a, double b) {
+double calculate_q(double a, double b) {
 	/*
-	
+	Inputs:
+	The coefficients of the cubic ecuation in the following form:
+					X^3 + aX^2 + bX + c = 0
+	Output:
+	The 'q' element in the Vieta method, defined as:
+					q = ( a^2 - 3b) / 9
 	*/
 	return (pow(a, 2) - (3 * b)) / 9;
 }
 
 
-double calcular_r(double a, double b, double c) {
+double calculate_r(double a, double b, double c) {
 	/*
-	Entradas:
-	
-	Salida:
-	q - valor para calcular el discriminante.
+	Inputs:
+	The coefficients of the cubic ecuation in the following form:
+					X^3 + aX^2 + bX + c = 0
+	Output:
+	The 'r' element in the Vieta method, defined as:
+					r = ( 2a^3 - 9ab + 27c) / 54
 	*/
-	double numerador = (2 * pow(a, 3)) - (9 * a*b) + (27 * c);
-	return numerador / 54;
+	double numerator = (2 * pow(a, 3)) - (9 * a*b) + (27 * c);
+	return numerator / 54;
 }
 
 double calcular_discriminante(double q, double r) {
+	/*
+	Inputs:
+	The 'q' and 'r' elements in the Vieta method.
+	Output:
+	The discriminant element in the Vieta method, defined as:
+				 S = q^3 - r^2
+	*/
 	return (pow(q, 3) - pow(r, 2));
 }
 
 double sgn(double num) {
+	/*
+	Sign function.
+	input:
+	A real number num.
+	Output:
+	The sign of the number num
+	*/
 	if (num > 0)
 		return 1;
 	if (num == 0)
@@ -42,16 +63,21 @@ double sgn(double num) {
 
 
 int main(int argc, char *argv[]) {
+	
+	//If the number of arguments is different from five (program name and the four
+	//coefficients), the program returns cero roots
 	if (argc != 5)
 	{
-		cout << "Numero de argumentos incorrecto." << endl;
+		cout << "{}" << endl;
 		return -1;
 	}
 	
+	//We convert the coefficients to double
+	//If the coefficient 'a' is equal to cero, the program returns cero roots
 	double a = atof(argv[1]);
 	if (a==0)
 	{
-		cout << "Error en los datos ingresados." << endl;
+		cout << "{}" << endl;
 		return -1;
 	}
 	double b = atof(argv[2]);
@@ -59,14 +85,18 @@ int main(int argc, char *argv[]) {
 	double d = atof(argv[4]);
 	const double PI = 2 * acos(0.0);
 
-
-	double q = calcular_q(b/a, c/a);
-	double r = calcular_r(b/a, c/a, d/a);
+	//We calculate the elements needed in the Vieta's method
+	double q = calculate_q(b/a, c/a);
+	double r = calculate_r(b/a, c/a, d/a);
 	double discr = calcular_discriminante(q, r);
 	double phi;
 	
 	double X1, X2, X3;
 	cout << fixed << setprecision(5);
+
+	//The discriminant tell us which formula we need to apply
+
+	//Three different real roots
 	if (discr > 0)
 	{
 		phi = (1.0 / 3.0) * acos(r / pow(q, 1.5));
@@ -77,12 +107,14 @@ int main(int argc, char *argv[]) {
 		return 0;
 	}
 
+	//Two real roots (the second one is repeated)
 	if (discr == 0) {
 		X1 = (-2 * pow(r, 1.0 / 3.0)) - (a / (b * 3));
 		X2 = pow(r, 1.0 / 3.0) - (a / (b * 3));
-		cout << "{ " << X1 << "}" << endl;
+		cout << "{ " << X1 << ", " << X2 << ", " << X2 << "}" << endl;
 	}
 
+	//One real root
 	else {
 		if (q > 0)
 		{
