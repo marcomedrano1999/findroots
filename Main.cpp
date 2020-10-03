@@ -1,7 +1,7 @@
 /*
-Program that calculate the real roots of the cubic ecuation in the following form: 
+Program that calculates the real roots of the cubic ecuation in the following form: 
 					aX^3 + bX^2 + cX + d = 0
-using the trigonometric method of Vieta
+using the Vieta's trigonometric formula
 */
 
 #include <iostream>
@@ -15,7 +15,7 @@ double calculate_q(double a, double b) {
 	The coefficients of the cubic ecuation in the following form:
 					X^3 + aX^2 + bX + c = 0
 	Output:
-	The 'q' element in the Vieta method, defined as:
+	The 'q' element in the Vieta's method, defined by:
 					q = ( a^2 - 3b) / 9
 	*/
 	return (pow(a, 2) - (3 * b)) / 9;
@@ -28,7 +28,7 @@ double calculate_r(double a, double b, double c) {
 	The coefficients of the cubic ecuation in the following form:
 					X^3 + aX^2 + bX + c = 0
 	Output:
-	The 'r' element in the Vieta method, defined as:
+	The 'r' element in the Vieta's method, defined by:
 					r = ( 2a^3 - 9ab + 27c) / 54
 	*/
 	double numerator = (2 * pow(a, 3)) - (9 * a*b) + (27 * c);
@@ -38,9 +38,9 @@ double calculate_r(double a, double b, double c) {
 double calcular_discriminante(double q, double r) {
 	/*
 	Inputs:
-	The 'q' and 'r' elements in the Vieta method.
+	The 'q' and 'r' elements in the Vieta's method.
 	Output:
-	The discriminant element in the Vieta method, defined as:
+	The discriminant element in the Vieta's method, defined by:
 				 S = q^3 - r^2
 	*/
 	return (pow(q, 3) - pow(r, 2));
@@ -50,9 +50,9 @@ double sgn(double num) {
 	/*
 	Sign function.
 	input:
-	A real number num.
+	A real number 'num'.
 	Output:
-	The sign of the number num
+	The sign of the number 'num'
 	*/
 	if (num > 0)
 		return 1;
@@ -64,7 +64,7 @@ double sgn(double num) {
 
 int main(int argc, char *argv[]) {
 	
-	//If the number of arguments is different from five (program name and the four
+	//If the number of arguments is different from five (the program name and the four
 	//coefficients), the program returns cero roots
 	if (argc != 5)
 	{
@@ -94,7 +94,7 @@ int main(int argc, char *argv[]) {
 	double X1, X2, X3;
 	cout << fixed << setprecision(5);
 
-	//The discriminant tell us which formula we need to apply
+	//The discriminant tells us which formula we need to apply
 
 	//Three different real roots
 	if (discr > 0)
